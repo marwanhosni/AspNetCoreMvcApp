@@ -25,9 +25,14 @@ namespace MvcWithRootAcademy
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-            builder.Services.AddScoped<UserManager<ApplicationUser>>();
-            builder.Services.AddScoped<SignInManager<ApplicationUser>>();
-
+            //builder.Services.AddScoped<UserManager<ApplicationUser>>();
+            //builder.Services.AddScoped<SignInManager<ApplicationUser>>();
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                            .AddEntityFrameworkStores<ApplicationDbContext>()
+                            .AddDefaultTokenProviders();
+            builder.Services.ConfigureApplicationCookie(configure =>
+            configure.LoginPath = "/Account/SignIn"
+            );
 
             builder.Services.AddAutoMapper(M => M.AddProfile(new MapProfile()));
 
@@ -39,7 +44,7 @@ namespace MvcWithRootAcademy
             {
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change th is for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                app.UseHsts(); 
             }
 
             app.UseHttpsRedirection();
@@ -47,6 +52,7 @@ namespace MvcWithRootAcademy
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

@@ -1,12 +1,15 @@
 ﻿@using MvcWithRootAcademy.ViewModels
 @model SignUpViewModel
 @{
-    ViewData["Title"] = "Signup";
-    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+	ViewData["Title"] = "SignUp";
+	Layout = "~/Views/Shared/_AuthLayout.cshtml";
 }
 
 <div class="main-agileinfo">
 	<div class="agileits-top">
+		<div asp-validation-summary="All">
+
+		</div>
 		<form asp-for="SignUp" method="post">
 			<input class="text" asp-for="UserName" placeholder="Username" required="">
 			<input class="text" asp-for="FirstName" placeholder="FirstName" required="">
