@@ -30,9 +30,10 @@ namespace MvcWithRootAcademy
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                             .AddEntityFrameworkStores<ApplicationDbContext>()
                             .AddDefaultTokenProviders();
-            builder.Services.ConfigureApplicationCookie(configure =>
-            configure.LoginPath = "/Account/SignIn"
-            );
+            builder.Services.ConfigureApplicationCookie(configure => {
+                configure.LoginPath = "/Account/SignIn";
+                configure.AccessDeniedPath = "/Account/AccessDenied";
+                }); 
 
             builder.Services.AddAutoMapper(M => M.AddProfile(new MapProfile()));
 

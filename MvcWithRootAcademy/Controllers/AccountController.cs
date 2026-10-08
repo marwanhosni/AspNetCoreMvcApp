@@ -56,8 +56,10 @@ public class AccountController : Controller
             ModelState.AddModelError(string.Empty, "User Is Already Exits");
         }
         return View(model);
-        #endregion
     }
+    #endregion
+    
+    #region Sign In
     [HttpGet]
     public IActionResult SignIn()
 
@@ -87,17 +89,25 @@ public class AccountController : Controller
         }
         return View(model);
     }
+    #endregion
+   
+    #region Sign Out
     public new async Task<IActionResult> SignOut()
     {
         await _signInManger.SignOutAsync();
         return RedirectToAction("SignIn");
     }
+    #endregion
+
     #region ForgetPassword
     [HttpGet]
     public IActionResult ForgetPassword()
     {
         return View();
     }
+    #endregion
+
+    #region ResetPassword
     public async Task<IActionResult> SendResetPasswordUrl(ForgetPasswordViewModel model)
     {
         if (ModelState.IsValid)
@@ -125,7 +135,7 @@ public class AccountController : Controller
         }
 
         return View(model);
-        #endregion
+       
 
     }
     public IActionResult CheckYourInbox()
@@ -163,4 +173,10 @@ public class AccountController : Controller
 
         return View(model);
     }
+    #endregion
+    public IActionResult AccessDenied()
+    {
+        return View();
+    }
+
 }
